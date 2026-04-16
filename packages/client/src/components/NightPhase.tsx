@@ -23,6 +23,14 @@ export default function NightPhase({ isAlive }: Props) {
     );
   }
 
+  const role = playerInfo?.role;
+  const nightNumber = gameState?.nightNumber ?? 1;
+
+  // Seer keeps her screen visible after action to display the result
+  if (role === 'SEER') {
+    return <SeerAction />;
+  }
+
   if (nightActionDone) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center animate-fade-in">
@@ -34,9 +42,6 @@ export default function NightPhase({ isAlive }: Props) {
     );
   }
 
-  const role = playerInfo?.role;
-  const nightNumber = gameState?.nightNumber ?? 1;
-
   // Cupid only acts on night 1
   if (role === 'CUPID' && nightNumber > 1) {
     return <WaitingScreen />;
@@ -45,8 +50,6 @@ export default function NightPhase({ isAlive }: Props) {
   switch (role) {
     case 'WEREWOLF':
       return <WerewolfAction />;
-    case 'SEER':
-      return <SeerAction />;
     case 'WITCH':
       return <WitchAction />;
     case 'CUPID':
