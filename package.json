@@ -2,14 +2,10 @@
   "name": "loup-garou",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "packages/client",
-    "packages/server"
-  ],
   "scripts": {
-    "dev": "concurrently --names \"SERVER,CLIENT\" --prefix-colors \"yellow,cyan\" \"npm run dev --workspace=packages/server\" \"npm run dev --workspace=packages/client\"",
-    "build": "npm run build --workspace=packages/server && npm run build --workspace=packages/client",
-    "db:setup": "npm run db:setup --workspace=packages/server"
+    "dev": "concurrently --names \"SERVER,CLIENT\" --prefix-colors \"yellow,cyan\" \"pnpm --filter @loup-garou/server dev\" \"pnpm --filter @loup-garou/client dev\"",
+    "build": "pnpm --filter @loup-garou/server build && pnpm --filter @loup-garou/client build",
+    "db:setup": "pnpm --filter @loup-garou/server db:setup"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

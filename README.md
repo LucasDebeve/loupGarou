@@ -5,20 +5,20 @@ Application web de jeu de formation inspiree du Loup-Garou, concue pour etre jou
 ## Prerequis
 
 - Node.js v18 ou superieur
-- npm v8 ou superieur
+- pnpm v8 ou superieur
 
 ## Installation et demarrage
 
 ### 1. Installer les dependances
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. Initialiser la base de donnees
 
 ```bash
-npm run db:setup
+pnpm db:setup
 ```
 
 Cela cree le fichier SQLite `packages/server/prisma/dev.db` et genere le client Prisma.
@@ -26,7 +26,7 @@ Cela cree le fichier SQLite `packages/server/prisma/dev.db` et genere le client 
 ### 3. Demarrer l'application
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 L'application demarre sur deux ports :
@@ -75,9 +75,9 @@ loupGarou/
 
 ## Scripts disponibles
 
-- `npm run dev`      : Demarre le frontend et le backend en parallele
-- `npm run build`    : Build de production
-- `npm run db:setup` : Initialise la base de donnees
+- `pnpm dev`      : Demarre le frontend et le backend en parallele
+- `pnpm build`    : Build de production
+- `pnpm db:setup` : Initialise la base de donnees
 
 ## Conditions de victoire
 
@@ -89,8 +89,8 @@ loupGarou/
 
 La base de donnees n'existe pas :
 ```bash
-npm run db:setup
+pnpm db:setup
 ```
 
 Reinitialiser la partie :
-Supprimer `packages/server/prisma/dev.db` et relancer `npm run db:setup`.
+Supprimer `packages/server/prisma/dev.db` et relancer `pnpm db:setup`.
