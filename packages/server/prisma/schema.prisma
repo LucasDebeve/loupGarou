@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  code         String   @unique
+  adminHash    String
+  phase        String   @default("LOBBY") // LOBBY, NIGHT, DAY, ENDED
+  nightNumber  Int      @default(0)
+  roleConfig   String   // JSON: { roleType: count }
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  players      Player[]
+  nightActions NightAction[]
+  gameLogs     GameLog[]
+}
+
+model Player {
+  id           String   @id @default(uuid())
+  sessionId    String
+  username     String
+  role         String?  // VILLAGER, WEREWOLF, SEER, WITCH, HUNTER, CUPID, LITTLE_GIRL
+  isAlive      Boolean  @default(true)
+  isConnected  Boolean  @default(false)
+  socketId     String?
+  loverId      String?  // playerId of their lover (Cupid mechanic)
+  hasUsedSavePotion  Boolean @default(false)
+  hasUsedKillPotion  Boolean @default(false)
+  joinedAt     DateTime @default(now())
+
+  session      Session  @relation(fields: [sessionId], references: [id])
+  nightActions NightAction[]
+}
+
+model NightAction {
+  id          String   @id @default(uuid())
+  sessionId   String
+  playerId    String
+  nightNumber Int
+  actionType  String   // WOLF_VOTE, SEER_INSPECT, WITCH_SAVE, WITCH_KILL, WITCH_PASS, HUNTER_SHOOT, CUPID_LINK, LITTLE_GIRL_PEEK
+  targetId    String?  // target player id
+  target2Id   String?  // second target (for Cupid)
+  result      String?  // JSON result data
+  createdAt   DateTime @default(now())
+
+  session     Session  @relation(fields: [sessionId], references: [id])
+  player      Player   @relation(fields: [playerId], references: [id])
+}
+
+model GameLog {
+  id          String   @id @default(uuid())
+  sessionId   String
+  nightNumber Int
+  phase       String   // NIGHT, DAY
+  eventType   String   // PLAYER_DIED, PLAYER_SAVED, LOVERS_LINKED, GAME_STARTED, etc.
+  data        String   // JSON
+  createdAt   DateTime @default(now())
+
+  session     Session  @relation(fields: [sessionId], references: [id])
+}
