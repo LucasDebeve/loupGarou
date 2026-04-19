@@ -10,7 +10,7 @@ RUN pnpm install --frozen-lockfile
 
 COPY packages/server packages/server
 COPY packages/client packages/client
-RUN pnpm --filter @loup-garou/server prisma generate
+RUN pnpm --filter @loup-garou/server exec prisma generate
 RUN pnpm --filter @loup-garou/server build
 
 FROM node:20-alpine AS runtime
