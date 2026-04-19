@@ -1,0 +1,42 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: packages/server/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      CLIENT_URL: https://${APP_HOST:-loup-garou.localhost}
+      DATABASE_URL: file:./dev.db
+    volumes:
+      - server-db:/app/packages/server/prisma
+    expose:
+      - "3001"
+    restart: unless-stopped
+    networks:
+      - app
+
+  client:
+    build:
+      context: .
+      dockerfile: packages/client/Dockerfile
+    depends_on:
+      - server
+    expose:
+      - "80"
+    restart: unless-stopped
+    labels:
+      caddy: ${APP_HOST:-loup-garou.localhost}
+      caddy.reverse_proxy: "{{upstreams 80}}"
+    networks:
+      - app
+      - caddy
+
+networks:
+  app:
+    driver: bridge
+  caddy:
+    external: true
+
+volumes:
+  server-db:

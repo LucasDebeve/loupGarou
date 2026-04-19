@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-night-900 text-amber-100 font-sans;
+    min-height: 100vh;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-amber-500 hover:bg-amber-400 text-night-900 font-bold py-3 px-6 rounded-lg
+           transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
+           shadow-lg shadow-amber-900/30;
+  }
+
+  .btn-secondary {
+    @apply bg-night-700 hover:bg-night-600 text-amber-200 font-semibold py-3 px-6 rounded-lg
+           border border-night-600 transition-all duration-200 active:scale-95
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-danger {
+    @apply bg-blood-600 hover:bg-blood-500 text-white font-bold py-3 px-6 rounded-lg
+           transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed
+           shadow-lg shadow-red-900/30;
+  }
+
+  .card {
+    @apply bg-night-800 border border-night-600 rounded-xl p-5 shadow-xl;
+  }
+
+  .input-field {
+    @apply bg-night-700 border border-night-600 text-amber-100 rounded-lg px-4 py-3 w-full
+           focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent
+           placeholder:text-night-600 transition-all duration-200;
+  }
+
+  .role-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-semibold;
+  }
+
+  .night-overlay {
+    background: radial-gradient(ellipse at top, #0a0f1e 0%, #030712 100%);
+  }
+
+  .day-overlay {
+    background: radial-gradient(ellipse at top, #1c1917 0%, #0a0a0a 100%);
+  }
+
+  .moon-effect {
+    @apply animate-moon-glow rounded-full;
+  }
+
+  .text-title {
+    @apply font-medieval text-amber-300 tracking-wide;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* Mobile-first safe area */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
