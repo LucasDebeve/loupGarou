@@ -79,6 +79,28 @@ loupGarou/
 - `pnpm build`    : Build de production
 - `pnpm db:setup` : Initialise la base de donnees
 
+## Deploiement Docker
+
+Le fichier [docker-compose.yml](docker-compose.yml) permet de deploiement en production avec un reverse proxy Caddy externe.
+
+Avant de lancer la stack, creer le reseau externe si besoin:
+
+```bash
+docker network create caddy
+```
+
+Puis definir `APP_HOST` avec le nom de domaine public, par exemple dans un fichier `.env` a la racine:
+
+```bash
+APP_HOST=jeu.example.com
+```
+
+Demarrage:
+
+```bash
+docker compose up -d --build
+```
+
 ## Conditions de victoire
 
 - Village : Tous les loups-garous ont ete elimines

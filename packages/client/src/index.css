@@ -39,7 +39,7 @@
   .input-field {
     @apply bg-night-700 border border-night-600 text-amber-100 rounded-lg px-4 py-3 w-full
            focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent
-           placeholder-night-500 transition-all duration-200;
+           placeholder:text-night-600 transition-all duration-200;
   }
 
   .role-badge {
